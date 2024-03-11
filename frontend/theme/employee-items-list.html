@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Admin Dashboard</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <a class="navbar-brand ps-3" href="admin-dashboard.html">Company Logo</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+            <button type="button" class="btn btn-success position-relative m-3 bg-primary">
+                <i class="fa fa-bell" aria-hidden="true"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" id="counter">
+                   <span id="output" class="badge rounded-pill bg-danger">1</span>
+                </span>
+             </button>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="profile-management-page.html">Profile</a></li>
+                        <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <a class="nav-link" href="employee-dashboard.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+                            <a class="nav-link" href="employee-items-list.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Office Items List 
+                            </a>
+                            <a class="nav-link" href="employee-expense-tracking.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Expense Tracking
+                            </a>
+                            <a class="nav-link" href="employee-hours-tracking.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Hours Tracking
+                            </a>
+                            
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        Amina Hamzic
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+              <main>
+
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Office List</h1>
+            
+                    <section class="vh-300" style="background-color: #eee;">
+                        <div class="container py-5 h-100">
+                            <div class="row d-flex justify-content-center align-items-center h-100">
+                                <div class="col col-lg-9 col-xl-7">
+                                    <div class="card rounded-3">
+                                        <div class="card-body p-50">
+            
+                                            <h4 class="text-center my-3 pb-3">Items List for Office</h4>
+            
+                                            <form class="row g-3 justify-content-center align-items-center mb-4 pb-2" onsubmit="event.preventDefault()">
+                                                <div class="col-auto">
+                                                    <div class="form-outline">
+                                                        <input type="text" id="form1" class="form-control" aria-label="Enter an item" placeholder="Enter an item here" />
+                                                    </div>
+                                                </div>
+            
+                                                <div class="col-auto">
+                                                    <select class="form-select" aria-label="Category select">
+                                                        <option selected>Select category</option>
+                                                        <option value="1">Groceries</option>
+                                                        <option value="2">Office Supplies</option>
+                                                        <option value="3">Other</option>
+                                                    </select>
+                                                </div>
+            
+                                                <div class="col-auto">
+                                                    <button type="button" class="btn btn-primary">Save</button>
+                                                </div>
+                                            </form>
+            
+                                            <table class="table mb-4">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">No.</th>
+                                                        <th scope="col">Item</th>
+                                                        <th scope="col">Category</th>
+                                                        <th scope="col">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>Buy coffee</td>
+                                                        <td>Groceries</td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-success ms-1">Finished</button>
+                                                            <button type="button" class="btn btn-danger">Delete</button>
+                                                            <button type="button" class="btn btn-info">Update</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                      <th scope="row">2</th>
+                                                      <td>Buy paper</td>
+                                                      <td>Office supply</td>
+                                                      <td>
+                                                         
+                                                      </td>
+                                                  </tr>
+                                                </tbody>
+                                            </table>
+            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                
+                </main>
+                
+             
+                
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Office Productivity App 2024</div>
+                            
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        </body>
+</html>
