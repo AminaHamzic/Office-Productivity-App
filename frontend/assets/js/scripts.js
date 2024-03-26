@@ -4,6 +4,7 @@
     * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-sb-admin/blob/master/LICENSE)
     
 
+!*/
 
 window.addEventListener('DOMContentLoaded', event => {
 
@@ -23,4 +24,4 @@ window.addEventListener('DOMContentLoaded', event => {
 
 });
 
-!*/
+
