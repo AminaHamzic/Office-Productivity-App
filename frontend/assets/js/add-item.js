@@ -109,16 +109,14 @@ updateItem = (id) => {
 
     if (!selectedItem) {
         console.log("Item with ID " + id + " not found.");
-        return; // Exit the function if no expense was found
+        return; 
     }
 
-    // Set values in the update modal form
     $("#update-item-form input[name='item_id']").val(selectedItem.id);
     $("#update-item-form input[name='update_item']").val(selectedItem.item);
     $("#update-item-form input[name='update_itemCategory']").val(selectedItem.itemCategory);
 
 
-    // Open the update modal or perform any other necessary actions
     $('#updateItemModal').modal('show');
 }
 
@@ -132,9 +130,8 @@ function submitItemUpdate() {
 
 $("#confirmSubmitButton").click(function() {
     var id = $(this).data("itemId");
-    $("#confirmSubmitButton").data("itemId", id); // Ensure the ID is set correctly
-
-    submitItemUpdate(); // Call the submitExpenseUpdate function
+    $("#confirmSubmitButton").data("itemId", id);
+    submitItemUpdate(); 
 });
 
 
@@ -152,7 +149,6 @@ $("#confirmDeleteButton").click(function() {
 
     console.log("Deleting item with ID:", id);
 
-    // Perform any deletion logic here
     
     $("#deleteItemModal").modal("hide");
 });

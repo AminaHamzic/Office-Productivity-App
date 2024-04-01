@@ -61,7 +61,7 @@ submitHandler: function(form, event) {
     }
     initializeDatatable("expenses-table", expenses);
 
-    $("#expenses-form")[0].reset(); // Clean form
+    $("#expenses-form")[0].reset(); 
     unblockUi("#expenses-form");
 }
 
@@ -123,17 +123,15 @@ updateExpense = (id) => {
 
     if (!selectedExpense) {
         console.log("Expense with ID " + id + " not found.");
-        return; // Exit the function if no expense was found
+        return; 
     }
 
-    // Set values in the update modal form
     $("#update-expense-form input[name='expense_id']").val(selectedExpense.id);
     $("#update-expense-form input[name='update_expense_date']").val(selectedExpense.dateInput);
     $("#update-expense-form input[name='update_expense_description']").val(selectedExpense.description);
     $("#update-expense-form input[name='update_expense_amount']").val(selectedExpense.expenseAmount);
     $("#update-expense-form select[name='update_expense_category']").val(selectedExpense.category);
 
-    // Open the update modal or perform any other necessary actions
     $('#updateExpenseModal').modal('show');
 }
 
@@ -147,13 +145,13 @@ function submitExpenseUpdate() {
 
 $("#confirmSubmitButton").click(function() {
     var id = $(this).data("expenseId");
-    $("#confirmSubmitButton").data("expenseId", id); // Ensure the ID is set correctly
+    $("#confirmSubmitButton").data("expenseId", id); 
 
-    submitExpenseUpdate(); // Call the submitExpenseUpdate function
+    submitExpenseUpdate();
 });
 
 function deleteExpense(id) {
-    $("#confirmDeleteButton").data("expenseId", id); // Update to "expenseId"
+    $("#confirmDeleteButton").data("expenseId", id);
 
     $("#deleteExpenseModal").modal("show");
 }
@@ -191,7 +189,7 @@ function saveWeeklyExpenses(weeklyExpenses) {
     console.log("Weekly expenses saved successfully:", weeklyExpenses);
     $("#total-weekly-expenses").text("$" + weeklyExpenses);
     localStorage.setItem("weeklyExpenses", weeklyExpenses);
-}       
+}     
     
         
 

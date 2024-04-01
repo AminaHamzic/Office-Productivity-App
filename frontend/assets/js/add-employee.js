@@ -130,24 +130,21 @@ updateEmployee = (id) => {
     $.each(employees, (idx, user) =>{
         if(user.id === id) {
             selectedUser = user;
-            return false; // Exit the loop once the user is found
+            return false; 
         }
     });
 
-    // Check if a user with the given ID was found
     if($.isEmptyObject(selectedUser)) {
         console.log("User with ID " + id + " not found.");
-        return; // Exit the function if no user was found
+        return;
     }
 
-    // Populate the update form fields with the selected user's data
     $("#update-employee-form input[name='id']").val(selectedUser.id);
     $("#update-employee-form input[name='name_surname']").val(selectedUser.name_surname);
     $("#update-employee-form input[name='position']").val(selectedUser.position);
     $("#update-employee-form input[name='office']").val(selectedUser.office);
     $("#update-employee-form input[name='working_hours']").val(selectedUser.working_hours);
 
-    // Open the update modal or perform any other necessary actions
     $('#updateEmployeeModal').modal('show');
 }
 
