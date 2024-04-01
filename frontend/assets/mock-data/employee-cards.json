@@ -1,0 +1,16 @@
+[
+    {
+      "title": "Items",
+      "body": "Number of items on list: 54",
+      "link": "#employee-hours-tracking",
+      "linkLabel": "View Details"
+    },
+    {
+        "title": "Expenses",
+        "body": "Expenses: $300.00",
+        "link": "#employee-expense-tracking",
+        "linkLabel": "View Details"
+      }
+    
+  ]
+  

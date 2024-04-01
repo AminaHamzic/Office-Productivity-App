@@ -1,0 +1,23 @@
+[
+    {
+      "title": "Items",
+      "body": "Number of items on list: 3",
+      "link": "#admin-items-list-man",
+      "linkLabel": "View Details"
+    },
+    {
+      "title": "Employees",
+      "body": "Number of employees: 5",
+      "link": "#admin-employee-management",
+      "linkLabel": "View Details"
+    },
+
+    {
+        "title": "Expenses",
+        "body": "Expenses: $500.00",
+        "link": "#admin-expense-tracking",
+        "linkLabel": "View Details"
+      }
+    
+  ]
+  

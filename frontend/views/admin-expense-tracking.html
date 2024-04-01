@@ -1,120 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Admin Dashboard</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-        <link href="css/styles.css" rel="stylesheet" />
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
-    </head>
-    <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand ps-3" href="admin-dashboard.html">Company Logo</a>
-            <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            <!-- Navbar Search-->
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                </div>
-            </form>
-            <button type="button" class="btn btn-success position-relative m-3 bg-primary">
-                <i class="fa fa-bell" aria-hidden="true"></i>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" id="counter">
-                   <span id="output" class="badge rounded-pill bg-danger">1</span>
-                </span>
-             </button>
-            <!-- Navbar-->
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="profile-management-page.html">Profile</a></li>
-                        <li><a class="dropdown-item" href="login.html">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <a class="nav-link" href="admin-dashboard.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
-                            </a>
-                            <a class="nav-link" href="admin-items-list-man.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Items List Management 
-                            </a>
-                            <a class="nav-link" href="admin-expense-tracking.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Expense Tracking
-                            </a>
-                            <a class="nav-link" href="admin-employee-management.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Employee Management
-                            </a>
-                            
-                        </div>
-                    </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Admin
-                    </div>
-                </nav>
-            </div>
-            <div id="layoutSidenav_content">
-                <main>
+<body>   
                     <div class="container mt-5">
                         <h2>Weekly Expense Tracking</h2>
                 
-                        <div class="mb-3">
-                            <h5>Total Weekly Expenses: <span>$350</span></h5>
+                        <div class="mb-3 row">
+                            <label for="weekly-expenses-input" class="col-sm-4 col-form-label">Total Weekly Expenses:</label>
+                            <div class="col-sm-4">
+                                <input type="number" id="weekly-expenses-input" class="form-control">
+                            </div>
+                            <div class="col-sm-4">
+                                <button id="save-weekly-expenses-btn" class="btn btn-primary mt-2 w-100">Save</button>
+                            </div>
                         </div>
+                        <div class="mb-3">
+                            <h5>Total Weekly Expenses: <span id="total-weekly-expenses" class="text-success"></span></h5>
+                        </div>
+                        
                     
                         <div class="card mb-4">
                             <div class="card-header">Add Expense for a Specific Day</div>
                             <div class="card-body">
-                                <form class="row g-3 align-items-center">
-                                    <div class="col-auto">
-                                        <label for="dateInput" class="col-form-label">Date</label>
+                                <form id="expenses-form" method="post" class="row g-3">
+                                    <div class="col-md-3">
+                                        <input
+                                            type="date"
+                                            class="form-control"
+                                            id="dateInput"
+                                            name="dateInput"
+                                            placeholder="Date"
+                                        />
                                     </div>
-                                    <div class="col-auto">
-                                        <input type="date" id="dateInput" class="form-control">
+                                    <div class="col-md-3">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="description"
+                                            name="description"
+                                            placeholder="Description"
+                                        />
                                     </div>
-                                    <div class="col-auto">
-                                        <label for="description" class="col-form-label">Description</label>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            id="expenseAmount"
+                                            name="expenseAmount"
+                                            placeholder="Expense Amount"
+                                        />
                                     </div>
-                                    <div class="col-auto">
-                                        <input type="text" id="description" class="form-control" placeholder="Description" aria-label="Description">
-                                    </div>
-                                    <div class="col-auto">
-                                        <label for="expenseAmount" class="col-form-label">Amount</label>
-                                    </div>
-                                    <div class="col-auto">
-                                        <input type="number" id="expenseAmount" class="form-control" placeholder="Amount" aria-label="Amount">
-                                    </div>
-                                    <div class="col-auto">
-                                        <select class="form-select" aria-label="Category select">
+                                    <div class="col-md-3">
+                                        <select class="form-select" name="category" id="category">
                                             <option selected>Select category</option>
-                                            <option value="1">Groceries</option>
-                                            <option value="2">Home</option>
-                                            <option value="3">Kids</option>
+                                            <option value="Groceries">Groceries</option>
+                                            <option value="Home">Home</option>
+                                            <option value="Kids">Kids</option>
                                         </select>
                                     </div>
-                                    <div class="col-auto">
-                                        <button type="button" class="btn btn-primary">Add Expense</button>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary">Submit Expense</button>
                                     </div>
                                 </form>
+                                
+                                
                             </div>
                         </div>
 
@@ -122,63 +68,20 @@
                             <div class="card-header">
                                 Your expenses this week
                             </div>
-                            <div class="card-body">
-                                <div class="mb-3 row">
-                                    <label for="categoryFilter" class="col-auto col-form-label">Select Category:</label>
-                                    <div class="col-auto">
-                                        <select id="categoryFilter" class="form-select">
-                                            <option value="all">All</option>
-                                            <option value="Groceries">Groceries</option>
-                                            <option value="Home">Home</option>
-                                            <option value="Kids">Kids</option>
-                                            <!-- Add more categories as needed -->
-                                        </select>
-                                    </div>
-                                </div>
-                    
-                    
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Description</th>
-                                            <th>Amount</th>
-                                            <th>Category</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>2023-03-07</td>
-                                            <td>Konzum shoping</td>
-                                            <td>Groceries</td>
-                                            <td>$80</td>
-                                            <td><button type="button" class="btn btn-info btn-sm">Update</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2023-03-08</td>
-                                            <td>Zara shopping</td>
-                                            <td>Shopping</td>
-                                            <td>$120</td>
-                                            <td><button type="button" class="btn btn-info btn-sm">Update</button></td>
-                                        </tr>
-                                    </tbody>
+
+
+                            
+                                 <table id="expenses-table" class="table table-striped table-bordered" style="width: 100%">
+                                <div id="total-expenses"></div>
+                               
+                        
                                 </table>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-             
-                
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Office Productivity App 2024</div>
+                                
                             
                         </div>
                     </div>
-                </footer>
-            </div>
-        </div>
-        </body>
-</html>
+            
+                    <script src="./assets/js/block-ui.js"></script>
+                    <script src="./assets/js/jquery.validate.min.js"></script>
+                    <script src="./assets/js/add-expenses.js"></script>
+</body>

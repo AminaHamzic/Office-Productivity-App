@@ -1,71 +1,35 @@
-
-                
-                    <div class="container-fluid px-4">
+<body>
+<div class="container-fluid px-4">
                         <h1 class="mt-4">Dashboard</h1>
                         
 
                         <!-- Cards -->
 
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Number of items on list: 3</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="admin-items-list-man.html">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Hours this week: 15</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="admin-employee-management.html">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="row" id="cardContainer">
+                            <!-- ajaxa here -->
                         </div>
+                        
                         <!-- Table of employees -->
-                        <div class="card mb-4">
+                        <div class="card">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 Employee List
                             </div>
-                            <div class="card-body">
-                                <table id="employeeTable">
+                                <table id="employeesTable" class="table table-striped table-bordered" style="width: 100%;">
                                     <thead>
                                         <tr>
+                                           
+                                            <th>ID</th>
                                             <th>Name</th>
                                             <th>Position</th>
                                             <th>Office</th>
                                             <th>Working Hours</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Amina</td>
-                                            <td>System Architect</td>
-                                            <td>023</td>
-                                            <td>61</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Merima</td>
-                                            <td>Accountant</td>
-                                            <td>321</td>
-                                            <td>40</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Elma </td>
-                                            <td>Junior Author</td>
-                                            <td>123</td>
-                                            <td>66</td>
-                                        </tr>
-                                    </tbody>
+                                    
                                 </table>
-                            </div>
+                            
                         </div>
-                    </div>
-                
-              
+</div>
+    
+    </body>        
