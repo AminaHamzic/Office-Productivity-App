@@ -1,0 +1,18 @@
+{
+    "categories": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    "series": [
+      {
+        "name": "Groceries",
+        "data": [50, 70, 60, 90, 100, 80, 110]
+      },
+      {
+        "name": "Shopping",
+        "data": [20, 40, 45, 35, 60, 55, 70]
+      },
+      {
+        "name": "Utilities",
+        "data": [70, 80, 75, 95, 120, 85, 100]
+      }
+    ]
+}
+  

@@ -1,3 +1,4 @@
+
 (function($) {
  
   $.spapp = function(options) {
