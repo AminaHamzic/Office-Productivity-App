@@ -6,14 +6,15 @@ require_once __DIR__ . "./rest/services/EmployeeService.class.php";
 
 $payload = $_REQUEST;
 
-/*
-if($payload ['name_surname'] == null || $payload ['name_surname'] == '') {
-    header('HTTP/1.1 400 Bad Request');
-    die(json_encode(array("message" => "Name and surname is required")));
-}*/
 
-$employeeService = new EmployeeService();
 
-$employees = $employeeService-> addEmployees($payload);
+$employee_service = new EmployeeService();
 
-echo json_encode(array("message" => "Employee added successfully!", "data" => $employees));
+if($payload['id'] != NULL && $payload['id'] != ''){
+    $employee = $employee_service->edit_employee($payload);
+} else {
+    unset($payload['id']);
+    $employee = $employee_service->addEmployees($payload);
+}
+
+echo json_encode(['message' => "You have successfully added the patient", 'data' => $employee]);

@@ -29,6 +29,15 @@ class EmployeeService
         $this->employee_dao->delete_employee($user_id);
     }
 
+    public function get_employee_by_id($user_id)
+    {
+        return $this->employee_dao->get_employee_by_id($user_id);
+    }
+
+    public function edit_employee($id, $employee) {
+        $this->employee_dao->edit_employee($id, $employee);
+    }
+
     
     
 

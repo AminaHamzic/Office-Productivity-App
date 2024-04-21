@@ -34,7 +34,7 @@ class EmployeeDao extends BaseDao
     
         $query = "SELECT *
                   FROM users
-                  WHERE LOWER(name_surname) LIKE CONCAT('%', :search, '%'); OR 
+                  WHERE LOWER(name_surname) LIKE CONCAT('%', :search, '%') OR
                   LOWER(position) LIKE CONCAT('%', :search, '%');
                   ORDER BY {$order_column} {$order_direction}
                   LIMIT :offset, :limit";
@@ -45,12 +45,38 @@ class EmployeeDao extends BaseDao
         ]);
     }
 
+
     public function delete_employee($user_id) {
         $query = "DELETE FROM users WHERE user_id = :user_id";
         $this->execute($query, [
             'user_id' => $user_id
         ]);
     }
+
+
+    public function get_employee_by_id($user_id) {
+        return $this->query_unique(
+            "SELECT * FROM users WHERE user_id = :user_id", 
+            ["user_id" => $user_id]);
+    }
+
+    public function edit_employee($user_id, $employee) {
+        $query  = "UPDATE users
+                   SET name_surname = :name_surname,
+                       position = :position,
+                       office = :office,
+                       working_hours = :working_hours
+                   WHERE user_id = :user_id";
+        $this->execute($query, [
+            'user_id' => $user_id, // Change from $id to $user_id
+            'name_surname' => $employee['name_surname'],
+            'position' => $employee['position'],
+            'office' => $employee['office'],
+            'working_hours' => $employee['working_hours']
+        ]);
+    }
+    
+    
     
 
     
