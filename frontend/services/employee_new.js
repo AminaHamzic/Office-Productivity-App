@@ -36,25 +36,32 @@ var EmployeeService = {
       alert("EDIT");
 
     },
-    //I want to use this modal from admin-employee-management.html to pop up window: deleteEmployeeModal
-    
-
-    delete_employee: function (id) {
-      if (
-        confirm(
-          "Do you want to delete employee with the id " + id + "?"
-        ) == true
-      ) {
-        RestClient.delete(
-          "delete_employee.php?id=" + id,
-          {},
-          function (data) {
-            EmployeeService.reload_employee_datatable();          
-          }
-        );
-      }
-    },
   
-    
+    delete_employee: function (id) {
+      $('#deleteEmployeeModal').data('employeeId', id);
+      $('#deleteEmployeeModal').modal('show');
+    },
+
+    confirm_delete_employee: function () {
+      var id = $('#deleteEmployeeModal').data('employeeId');
+
+      RestClient.delete(
+        "delete_employee.php?id=" + id,
+        {},
+        function (data) {
+          $('#deleteEmployeeModal').modal('hide');
+      
+          EmployeeService.reload_employee_datatable();
+          
+          toastr.success("Employee has been deleted successfully.");
+        },
+        function (error) {
+          $('#deleteEmployeeModal').modal('hide');
+          
+          toastr.error("Error deleting the employee.");
+        }
+      );
+    },
 }
 
+ 
