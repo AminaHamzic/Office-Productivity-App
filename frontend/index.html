@@ -13,6 +13,7 @@
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
         <link href="assets/css/dataTables.bootstrap5 (1).css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
+        <link href="assets/css/toastr.min.css" rel="stylesheet" />
     </head>
 
     
@@ -64,13 +65,18 @@
                 </footer>
             </div>
         </div>
-        <!-- jQuery -->
+
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <!-- DataTables JS -->
         <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-        <!-- Bootstrap JS -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>
        
+        <script src="./utils/utils.js"></script>
+        <script src="./utils/form_validation.js"></script>
+        <script src="./utils/constants.js"></script>
+        <script src="./utils/rest_client.js"></script>
+        <script src="./assets/js/toastr.min.js"></script>
+
+
         <script src="./assets/js/block-ui.js"></script>
         <script src="./assets/js/jquery.validate.min.js"></script>
         <script src="./assets/js/admin-dashboard.js"></script>
@@ -79,39 +85,22 @@
         <script src="./assets/js/dataTables.js"></script>
         <script src="./assets/js/dataTables.bootstrap5.js"></script>
         <script src="./assets/js/employee-dashboard.js"></script>
+        <script src="./services/employee_new.js"></script>
         
-        
-
-
-
-
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
         <script src="https://code.highcharts.com/modules/export-data.js"></script>
         <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+        
                 
-
-
-
-
-
         <script>
-             
-                    
-                    var userRole = 'employee';
+            Utils.init_spapp()
+            Utils.block_ui()
+            Utils.unblock_ui()
+            Utils.get_datatable()
 
-                    var defaultView = userRole === 'admin' ? "#admin-dashboard" : "#employee-dashboard";
-
-                    var app = $.spapp({
-                        defaultView: defaultView,
-                        templateDir: "./views/"
-                    });
-
-                    app.run();
-    
         </script>
-        
- </body>
-        
 
+ </body>
 </html>
