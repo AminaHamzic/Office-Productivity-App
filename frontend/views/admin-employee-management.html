@@ -143,7 +143,21 @@
                 <script>
                   EmployeeService.reload_employee_datatable();
 
-                  FormValidation.validate("#add-employee-form", {},
+                  FormValidation.validate("#add-employee-form", {
+                    name_surname: {
+                      required: true,
+                    },
+                    position: {
+                      required: true,
+                    },
+                    office: {
+                      required: true,
+                    },
+                    working_hours: {
+                      required: true,
+                    },
+                  
+                  },
                   function(data){
                     Utils.block_ui("#add-employee-form");
                     
