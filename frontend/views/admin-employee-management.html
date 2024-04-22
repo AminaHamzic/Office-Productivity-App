@@ -146,15 +146,19 @@
                   FormValidation.validate("#add-employee-form", {
                     name_surname: {
                       required: true,
+                      minlength: 3,
                     },
                     position: {
                       required: true,
+                      minlength: 3,
                     },
                     office: {
                       required: true,
+                      minlength: 3,
                     },
                     working_hours: {
                       required: true,
+                      number: true,
                     },
                   
                   },

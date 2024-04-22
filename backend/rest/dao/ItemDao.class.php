@@ -70,6 +70,11 @@ class ItemDao extends BaseDao
             
         ]);
     }
+
+    public function get_categories() {
+        $query = "SELECT category_id, category_name FROM categories";
+        return $this->query($query, []);
+    }
     
     
     

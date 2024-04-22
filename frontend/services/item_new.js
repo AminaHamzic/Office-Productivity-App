@@ -7,7 +7,7 @@ var ItemService = {
         [
           { data: "id" },
           { data: "item" },
-          { data: "category_id" },
+          { data: "category" },
           { data: "action" }
         ]
       );
@@ -33,7 +33,7 @@ var ItemService = {
       // Make a REST call to fetch the item data
       RestClient.get("update_item.php?id=" + id, function (data) {
         $('#update_item').val(data.item);
-        $('#category_update').val(data.category_id);
+        $('#category_update').val(data.category);
         
         
         $('#updateItemModal').modal('show');
@@ -89,6 +89,21 @@ var ItemService = {
         }
       );
     },
+
+    load_categories: function() {
+      RestClient.get("get_categories.php", function(categories) {
+          console.log("Categories: ", categories);  // Check what you receive exactly
+          var categorySelect = $('#category');
+          categorySelect.empty();
+          categorySelect.append('<option selected>Select category</option>');
+  
+          categories.forEach(function(category) {
+              categorySelect.append(new Option(category.category_name, category.id));
+          });
+      }, function(error) {
+          toastr.error("Error loading categories: " + error);
+      });
+  },
 
   }
 

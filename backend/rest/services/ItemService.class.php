@@ -38,6 +38,10 @@ class ItemService
         $this->item_dao->edit_item($id, $item);
     }
 
+    public function get_categories() {
+        return $this->item_dao->get_categories();
+    }
+
     
     
 
