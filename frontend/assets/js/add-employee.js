@@ -1,6 +1,6 @@
 let employees = [];
 var idCounter = 1;
-
+/*
 $("#add-employee-form").validate({
     rules: {
         name_surname: {
@@ -72,43 +72,28 @@ submitHandler: function(form, event) {
 
     unblockUi("#add-employee-form");
 }
-});
+});*/
 
-blockUi = (element) => {
-    $(element).block({
-      message: '<div class="spinner-border text-primary" role="status"></div>',
-      css: {
-        backgroundColor: "transparent",
-        border: "0",
-      },
-      overlayCSS: {
-        backgroundColor: "#000",
-        opacity: 0.25,
-      },
-    });
+const blockUi = (element) => {
+    
   };
   
-unblockUi = (element) => {
-    $(element).unblock({});
+const unblockUi = (element) => {
 };
 
 
 serializeForm = (form) => {
-    let jsonResult = {};
-    $.each($(form).serializeArray(), function () {
-        jsonResult[this.name] = this.value;
-    });
-    return jsonResult;
+   
 
 }
 
-
+/*
 initializeDatatable = (tableId, data) => {
     
     $('#' + tableId).DataTable({
         responsive: true,
         columns: [
-            {title: "ID", data: "id"},
+            //{title: "ID", data: "id"},
             {title: "Name", data: "name_surname"},
             {title: "Position", data: "position"},
             {title: "Office", data: "office"},
@@ -179,7 +164,7 @@ $("#confirmDeleteButton").click(function() {
     
     $("#deleteEmployeeModal").modal("hide");
 });
-
+*/
 
 
 

@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', event => {
 $(document).ready(function() {
     
     function getUserRole() {
-        return 'employee';
+        return 'admin';
     }
 
     function loadNavigationAndInitializeSPApp() {
