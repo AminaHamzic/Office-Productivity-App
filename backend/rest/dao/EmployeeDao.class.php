@@ -68,7 +68,7 @@ class EmployeeDao extends BaseDao
                        working_hours = :working_hours
                    WHERE user_id = :user_id";
         $this->execute($query, [
-            'user_id' => $user_id, // Change from $id to $user_id
+            'user_id' => $user_id,
             'name_surname' => $employee['name_surname'],
             'position' => $employee['position'],
             'office' => $employee['office'],

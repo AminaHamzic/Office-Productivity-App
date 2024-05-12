@@ -165,7 +165,7 @@
                   function(data){
                     Utils.block_ui("#add-employee-form");
                     
-                    $.post(Constants.API_BASE_URL + "add_employee.php", data)
+                    $.post(Constants.API_BASE_URL + "employees/add", data)
                       .done(function (data) {
                         Utils.unblock_ui("#add-employee-form");
                         toastr.success("You have successfully added the employee.");
@@ -179,7 +179,7 @@
 
                   
 
-                    console.log("Data from form is serialized into: " + JSON.stringify(data));
+                    //console.log("Data from form is serialized into: " + JSON.stringify(data));
                     
 
                    })

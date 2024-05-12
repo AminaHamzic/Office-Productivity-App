@@ -8,7 +8,7 @@ var ItemService = {
           { data: "id" },
           { data: "item" },
           { data: "category" },
-          { data: "action" }
+          { data: "action" },
         ]
       );
     },
@@ -92,18 +92,21 @@ var ItemService = {
 
     load_categories: function() {
       RestClient.get("get_categories.php", function(categories) {
-          console.log("Categories: ", categories);  // Check what you receive exactly
-          var categorySelect = $('#category');
-          categorySelect.empty();
-          categorySelect.append('<option selected>Select category</option>');
-  
-          categories.forEach(function(category) {
-              categorySelect.append(new Option(category.category_name, category.id));
-          });
-      }, function(error) {
-          toastr.error("Error loading categories: " + error);
+        var categorySelect = $('#category');
+        categorySelect.empty(); 
+        categorySelect.append('<option selected>Select category</option>');
+    
+        categories.forEach(function(category) {
+            categorySelect.append(new Option(category.category_name, category.id));
+        });
+    
+        console.log("Loaded categories:", categories);
+      }, function(xhr, status, error) {
+        toastr.error("Error loading categories: " + error);
+        console.error("Error details:", xhr, status, error); 
       });
-  },
+    },
+    
 
   }
 

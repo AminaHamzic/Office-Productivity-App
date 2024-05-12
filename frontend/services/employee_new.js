@@ -3,17 +3,16 @@ var EmployeeService = {
     reload_employee_datatable: function () {
       Utils.get_datatable(
         "employees-table",
-        Constants.API_BASE_URL + "get_employee.php",
+        Constants.API_BASE_URL + "employees",
         [
-          { data: "user_id" },
-          { data: "name_surname" },
-          { data: "position" },
-          { data: "office" },
-          { data: "working_hours" },
-          { data: "action"}
-          
+            { data: "user_id" },
+            { data: "name_surname" },
+            { data: "position" },
+            { data: "office" },
+            { data: "working_hours" },
+            { data: "action" }
         ]
-      );
+    );
     },
 
     add_employee: function () {
@@ -21,7 +20,7 @@ var EmployeeService = {
       if (form.valid()) {
         var data = Utils.serialize_form(form);
         RestClient.post(
-          "add_employee.php",
+          "employees/add",
           data,
           function (data) {
             EmployeeService.reload_employee_datatable();
@@ -33,44 +32,35 @@ var EmployeeService = {
     },
     
     open_edit_employee_modal: function (user_id) {
-      // Make a REST call to fetch the employee data
-      RestClient.get("update_employee.php?id=" + user_id, function (data) {
-        // Populate the form fields in the modal with the fetched data
+
+      RestClient.get("employees/" + user_id, function (data) {
         $('#update-id').val(data.user_id);
         $('#update-name_surname').val(data.name_surname);
         $('#update-position').val(data.position);
         $('#update-office').val(data.office);
         $('#update-working_hours').val(data.working_hours);
-        
-        // Show the modal for editing
         $('#updateEmployeeModal').modal('show');
-      }, function (error) {
-        toastr.error("Error loading employee data.");
       });
     },
     
     save_employee_changes: function () {
       var form = $("#update-employee-form");
       if (form.valid()) {
-        var data = Utils.serialize_form(form);
-        // No need to append the id to the URL, it should be part of the form data
-        RestClient.post(
-          "update_employee.php", // the endpoint
-          data, // the payload includes the id
-          function (response) {
-            $('#updateEmployeeModal').modal('hide');
-            EmployeeService.reload_employee_datatable();
-            toastr.success("Employee has been updated successfully.");
-          },
-          function (error) {
-            $('#updateEmployeeModal').modal('hide');
-            toastr.error("Error updating the employee.");
-          }
-        );
+          var data = Utils.serialize_form(form);
+          var id = $('#update-id').val();
+          //console.log("Data to be sent:", data);
+  
+          RestClient.put("employees/update/" + id, data, function(response) {
+              //console.log("Response:", response);
+              $('#updateEmployeeModal').modal('hide');
+              EmployeeService.reload_employee_datatable();
+              toastr.success("Employee updated successfully.");
+          }, function(error) {
+              console.log("Failed to update employee:", error.responseText);
+              toastr.error("Error updating the employee.");
+          });
       }
-    },
-    
-
+  },
   
     delete_employee: function (id) {
       $('#deleteEmployeeModal').data('employeeId', id);
@@ -81,7 +71,7 @@ var EmployeeService = {
       var id = $('#deleteEmployeeModal').data('employeeId');
 
       RestClient.delete(
-        "delete_employee.php?id=" + id,
+        "employees/delete/" + id,
         {},
         function (data) {
           $('#deleteEmployeeModal').modal('hide');
