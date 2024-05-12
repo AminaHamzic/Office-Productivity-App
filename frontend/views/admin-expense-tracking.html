@@ -175,7 +175,7 @@
                         function(data){
                           Utils.block_ui("#expenses-form");
                           
-                          $.post(Constants.API_BASE_URL + "add_expense.php", data)
+                          $.post(Constants.API_BASE_URL + "expenses/add", data)
                             .done(function (data) {
                               Utils.unblock_ui("#expenses-form");
                               toastr.success("You have successfully added the expense.");

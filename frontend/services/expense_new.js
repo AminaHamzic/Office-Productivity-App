@@ -1,114 +1,106 @@
 var ExpenseService = {
 
-    reload_expense_datatable: function () {
+  reload_expense_datatable: function () {
       Utils.get_datatable(
-        "expenses-table",
-        Constants.API_BASE_URL + "get_expense.php",
-        [
-          { data: "id" },
-          { data: "dateInput" },
-          { data: "description" },
-          { data: "expenseAmount" },
-            { data: "category" },
-          { data: "action" }
-        ]
+          "expenses-table",
+          Constants.API_BASE_URL + "expenses", // Assuming Constants.API_BASE_URL is correctly set to point to your Flight PHP application
+          [
+              { data: "id" },
+              { data: "dateInput" },
+              { data: "description" },
+              { data: "expenseAmount" },
+              { data: "category" },
+              { data: "action" }
+          ]
       );
-    },
+  },
 
-    add_expense: function () {
+  add_expense: function () {
       var form = $("#expenses-form");
       if (form.valid()) {
-        var data = Utils.serialize_form(form);
-        RestClient.post(
-          "add_expense.php",
-          data,
-          function (data) {
-            ExpenseService.reload_expense_datatable();
-            Utils.clear_form(form);
-          },
-          
-        );
+          var data = Utils.serialize_form(form);
+          RestClient.post(
+              Constants.API_BASE_URL + "expenses/add",
+              data,
+              function (response) {
+                  ExpenseService.reload_expense_datatable();
+                  Utils.clear_form(form);
+                  toastr.success("Expense added successfully.");
+              },
+              function (error) {
+                  toastr.error("Error adding the expense: " + error.responseText);
+              }
+          );
       }
-    },
-    
-    open_edit_expense_modal: function (id) {
-      RestClient.get("update_expense.php?id=" + id, function (data) {
-        $('#update_expense').val(data.expense);
-        $('#category_update').val(data.category);
-        
-        
-        $('#updateExpenseModal').modal('show');
+  },
+  
+  open_edit_expense_modal: function (expense_id) {
+      RestClient.get(Constants.API_BASE_URL + "expenses/" + expense_id, function (expense) {
+          $('#update_expense').val(expense.description); // Adjust according to actual data fields
+          $('#category_update').val(expense.category); // You need to ensure categories are loaded
+          $('#updateExpenseModal').modal('show');
       }, function (error) {
-        toastr.error("Error loading expense data.");
+          toastr.error("Error loading expense data: " + error.responseText);
       });
-    },
-    
-    save_expense_changes: function () {
+  },
+  
+  save_expense_changes: function () {
       var form = $("#update-expense-form");
       if (form.valid()) {
-        var data = Utils.serialize_form(form);
-        RestClient.post(
-          "update_expense.php", 
-          data, 
+          var data = Utils.serialize_form(form);
+          var expense_id = $('#update_id').val();
+          RestClient.put(
+              Constants.API_BASE_URL + "expenses/update/" + expense_id,
+              JSON.stringify(data),
+              {
+                  contentType: 'application/json',
+                  success: function (response) {
+                      $('#updateExpenseModal').modal('hide');
+                      ExpenseService.reload_expense_datatable();
+                      toastr.success("Expense updated successfully.");
+                  },
+                  error: function (error) {
+                      toastr.error("Error updating the expense: " + error.responseText);
+                  }
+              }
+          );
+      }
+  },
+
+  delete_expense: function (expense_id) {
+      $('#deleteExpenseModal').data('id', expense_id);
+      $('#deleteExpenseModal').modal('show');
+  },
+
+  confirm_delete_expense: function () {
+      var expense_id = $('#deleteExpenseModal').data('id');
+      RestClient.delete(
+          Constants.API_BASE_URL + "expenses/delete/" + expense_id,
+          {},
           function (response) {
-            $('#updateExpenseModal').modal('hide');
-            ExpenseService.reload_expense_datatable();
-            toastr.success("expense has been updated successfully.");
+              $('#deleteExpenseModal').modal('hide');
+              ExpenseService.reload_expense_datatable();
+              toastr.success("Expense deleted successfully.");
           },
           function (error) {
-            $('#updateExpenseModal').modal('hide');
-            toastr.error("Error updating the expense.");
+              $('#deleteExpenseModal').modal('hide');
+              toastr.error("Error deleting the expense: " + error.responseText);
           }
-        );
-      }
-    },
-    
-
-  
-    delete_expense: function (id) {
-      $('#deleteExpenseModal').data('id', id);
-      $('#deleteExpenseModal').modal('show');
-    },
-
-    confirm_delete_expense: function () {
-      var id = $('#deleteExpenseModal').data('id');
-
-      RestClient.delete(
-        "delete_expense.php?id=" + id,
-        {},
-        function (data) {
-          $('#deleteExpenseModal').modal('hide');
-      
-          ExpenseService.reload_expense_datatable();
-          
-          toastr.success("Expense has been deleted successfully.");
-        },
-        function (error) {
-          $('#deleteExpenseModal').modal('hide');
-          
-          toastr.error("Error deleting the expense.");
-        }
       );
-    },
+  },
 
-    load_categories: function() {
-        RestClient.get("get_categories.php", function(categories) {
-          var categorySelect = $('#category');
-          categorySelect.empty(); 
-          categorySelect.append('<option selected>Select category</option>');
-      
+  load_categories: function() {
+      RestClient.get(Constants.API_BASE_URL + "categories", function(categories) {
+          var categorySelect = $('#category_id');
+          categorySelect.empty();
+          categorySelect.append('<option selected>Select Category</option>');
+          
           categories.forEach(function(category) {
-              categorySelect.append(new Option(category.category_name, category.id));
+              categorySelect.append(new Option(category.category_name, category.category_id));
           });
-      
-          console.log("Loaded categories:", categories);
-        }, function(xhr, status, error) {
+      }, function(xhr, status, error) {
           toastr.error("Error loading categories: " + error);
-          console.error("Error details:", xhr, status, error); 
-        });
-      },
+      });
+  },
 
-  }
-
-
-  
+};
