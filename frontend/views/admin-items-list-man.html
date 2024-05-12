@@ -22,8 +22,7 @@
                                                     />
                                                 </div>
                                                 <div class="col-md-3">
-                                                  <select class="form-select" name="category" id="category">
-                                                </select>
+                                                    <select id="category_id" name="category_id" class="form-select"></select>
                                                 </div>
                                                 <div class="col-3">
                                                     <button type="submit" class="btn btn-primary">Save</button>
@@ -71,11 +70,8 @@
             </div>
             <div class="form-group">
               <label for="update_category">Category</label>
-              <select class="form-select" name="category_update" id="category_update">
-                <option selected>Select category</option>
-                <option value="Groceries">Groceries</option>
-                <option value="Office Supply">Office Supply</option>
-                <option value="Other">Other</option>
+              <select class="form-select" name="category" id="category_update">
+              
             </select>
             </div>
           </form>
@@ -129,7 +125,7 @@
                     item: {
                       required: true,
                     },
-                    category_id: {
+                    category: {
                       required: true,
                     },
                   
@@ -137,7 +133,7 @@
                   function(data){
                     Utils.block_ui("#items-form");
                     
-                    $.post(Constants.API_BASE_URL + "add_item.php", data)
+                    $.post(Constants.API_BASE_URL + "items/add", data)
                       .done(function (data) {
                         Utils.unblock_ui("#items-form");
                         toastr.success("You have successfully added the item.");

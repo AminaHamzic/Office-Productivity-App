@@ -14,4 +14,11 @@ class ExpenseDao extends BaseDao
         $query = "SELECT category_name FROM categories WHERE category_id = :category_id";
         return $this->query_unique($query, ["category_id" => $category_id]);
     }
+
+    public function get_all() {
+        return $this->query("SELECT * FROM categories", []);
+    }
+    
+
+
 }

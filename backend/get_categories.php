@@ -1,13 +1,10 @@
 <?php
 
-require_once __DIR__ . "/rest/services/ItemService.class.php"; // Corrected the path.
+require_once __DIR__ . "./rest/services/CategoryService.class.php"; 
 
-$item_service = new ItemService();
+$category_service = new CategoryService();
 
-$categories = $item_service->get_categories();
+$categories = $category_service->get_all_categories();
 
 header('Content-Type: application/json');
-
 echo json_encode($categories);
-
-
