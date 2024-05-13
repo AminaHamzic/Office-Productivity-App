@@ -2,6 +2,11 @@
 
 require_once __DIR__ . '/../services/EmployeeService.class.php';
 
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
+
+
 Flight:: set('employee_service', new EmployeeService());
 
 /**
@@ -28,6 +33,8 @@ Flight:: set('employee_service', new EmployeeService());
  */
 
 Flight::route('GET /employees', function() {
+
+   
 
     $payload = Flight::request()->query;
 
@@ -77,6 +84,11 @@ Flight::route('GET /employees', function() {
  *              @OA\Property(property="position", type="string", example="Manager"),
  *             @OA\Property(property="office", type="string", example="Sarajevo"),
  *             @OA\Property(property="working_hours", type="string", example="8")
+ *             @OA\Property(property="email", type="string", example="amina.hamzic@gmail.com"),
+ *             @OA\Property(property="password", type="string", example="orifodn")
+ * 
+ *
+ * 
  *          )
  *      ),
  *      @OA\Response(
@@ -125,7 +137,10 @@ Flight::route ('POST /employees/add', function() {
  *          name="employee_id",
  *          in="path",
  *          required=true,
- *          description="ID of the employee to delete"
+ *          description="ID of the employee to delete",
+ *          @OA\Schema(
+ *              type="integer"
+ *          )
  *      ),
  *      @OA\Response(
  *          response=200,
@@ -140,6 +155,7 @@ Flight::route ('POST /employees/add', function() {
  *      )
  * )
  */
+
 
 
 Flight::route ('DELETE /employees/delete/@employee_id', function($employee_id) { //route & query parameter, 
@@ -207,7 +223,10 @@ Flight::route ('GET /employees/@employee_id', function($employee_id) {
  *             @OA\Property(property="name_surname", type="string", example="John Doe"),
  *             @OA\Property(property="position", type="string", example="Manager"),
  *            @OA\Property(property="office", type="string", example="Sarajevo"),
- *            @OA\Property(property="working_hours", type="string", example="8"
+ *            @OA\Property(property="working_hours", type="string", example="8"),
+ *           @OA\Property(property="email", type="string", example="amina@gmail.com"),
+ *          @OA\Property(property="password", type="string", example="orifodn")
+ * 
  * 
  *              
  *          )

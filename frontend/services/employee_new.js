@@ -10,6 +10,7 @@ var EmployeeService = {
             { data: "position" },
             { data: "office" },
             { data: "working_hours" },
+            { data: "email"},
             { data: "action" }
         ]
     );
@@ -39,6 +40,8 @@ var EmployeeService = {
         $('#update-position').val(data.position);
         $('#update-office').val(data.office);
         $('#update-working_hours').val(data.working_hours);
+        $('#update-email').val(data.email);
+        $('#update-password').val(data.password);
         $('#updateEmployeeModal').modal('show');
       });
     },
@@ -62,33 +65,29 @@ var EmployeeService = {
       }
   },
   
-    delete_employee: function (id) {
-      $('#deleteEmployeeModal').data('employeeId', id);
+   delete_employee: function (employee_id) {
+      $('#deleteEmployeeModal').data('id', employee_id);
       $('#deleteEmployeeModal').modal('show');
-    },
+  },
 
-    confirm_delete_employee: function () {
-      var id = $('#deleteEmployeeModal').data('employeeId');
-
+  confirm_delete_employee: function () {
+      var employee_id = $('#deleteEmployeeModal').data('id');
       RestClient.delete(
-        "employees/delete/" + id,
-        {},
-        function (data) {
-          $('#deleteEmployeeModal').modal('hide');
-      
-          EmployeeService.reload_employee_datatable();
-          
-          toastr.success("Employee has been deleted successfully.");
-        },
-        function (error) {
-          $('#deleteEmployeeModal').modal('hide');
-          
-          toastr.error("Error deleting the employee.");
-        }
+          Constants.API_BASE_URL + "employee/delete/" + employee_id,
+          {},
+          function (response) {
+              $('#deleteEmployeeModal').modal('hide');
+              EmployeesService.reload_expense_datatable();
+              toastr.success("Expense deleted successfully.");
+          },
+          function (error) {
+              $('#deleteEmployeeModal').modal('hide');
+              toastr.error("Error deleting the expense: " + error.responseText);
+          }
       );
-    },
-
   }
+
+  };
 
 
   
