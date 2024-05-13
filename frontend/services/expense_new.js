@@ -3,7 +3,7 @@ var ExpenseService = {
   reload_expense_datatable: function () {
       Utils.get_datatable(
           "expenses-table",
-          Constants.API_BASE_URL + "expenses", // Assuming Constants.API_BASE_URL is correctly set to point to your Flight PHP application
+          Constants.API_BASE_URL + "expenses", 
           [
               { data: "id" },
               { data: "dateInput" },
@@ -36,8 +36,8 @@ var ExpenseService = {
   
   open_edit_expense_modal: function (expense_id) {
       RestClient.get(Constants.API_BASE_URL + "expenses/" + expense_id, function (expense) {
-          $('#update_expense').val(expense.description); // Adjust according to actual data fields
-          $('#category_update').val(expense.category); // You need to ensure categories are loaded
+          $('#update_expense').val(expense.description); 
+          $('#category_update').val(expense.category); 
           $('#updateExpenseModal').modal('show');
       }, function (error) {
           toastr.error("Error loading expense data: " + error.responseText);
