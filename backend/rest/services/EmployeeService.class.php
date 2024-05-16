@@ -13,6 +13,7 @@ class EmployeeService
 
     public function addEmployees($employee)
     {
+        $employee['password'] = password_hash($employee['password'], PASSWORD_BCRYPT);
         return $this->employee_dao->addEmployees($employee);
     }
 

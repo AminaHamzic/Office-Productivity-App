@@ -49,9 +49,7 @@
                     <section id="employee-expense-tracking" data-load="employee-expense-tracking.html"></section>
                     <section id="employee-hours-tracking" data-load="employee-hours-tracking.html"></section>
                     <section id="employee-items-list" data-load="employee-items-list.html"></section>
-
                     <section id="profile-management-page" data-load="profile-management-page.html"></section>
-                    <section id="login-page" data-load="login.html"></section>
                     
 
                 </main>
@@ -87,6 +85,8 @@
         <script src="./assets/js/employee-dashboard.js"></script>
         <script src="./services/employee_new.js"></script>
         <script src="./services/item_new.js"></script>
+        <script src="./services/expense_new.js"></script>
+        <script src="./services/hours_new.js"></script>
         
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -96,7 +96,12 @@
         
                 
         <script>
-            Utils.init_spapp()
+            if(Utils.get_from_localstorage("user")) {
+                Utils.init_spapp()
+            }
+            else {
+                window.location = "login"
+            }
             Utils.block_ui()
             Utils.unblock_ui()
             Utils.get_datatable()

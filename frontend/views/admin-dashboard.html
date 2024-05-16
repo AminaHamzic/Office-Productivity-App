@@ -1,4 +1,3 @@
-<body>
 <div class="container-fluid px-4">
                         <h1 class="mt-4">Dashboard</h1>
                         
@@ -6,7 +5,6 @@
                         <!-- Cards -->
 
                         <div class="row" id="cardContainer">
-                            <!-- ajaxa here -->
                         </div>
                         
                         <!-- Table of employees -->
@@ -15,21 +13,36 @@
                                 <i class="fas fa-table me-1"></i>
                                 Employee List
                             </div>
-                                <table id="employeesTable" class="table table-striped table-bordered" style="width: 100%;">
-                                    <thead>
-                                        <tr>
-                                           
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Working Hours</th>
-                                        </tr>
-                                    </thead>
-                                    
-                                </table>
+                            <table id="employees-table"  class="table table-striped table-bordered" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                       
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Position</th>
+                                        <th>Office</th>
+                                        <th>Working Hours</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                
+                            </table>
                             
                         </div>
 </div>
+   
+  
+<script src="./assets/js/block-ui.js"></script>
+<script src="./assets/js/jquery.validate.min.js"></script>
+
+
+<script>
+  EmployeeService.reload_employee_datatable();
+
+
+  
+  //console.log("Data from form is serialized into: " + JSON.stringify(data));
     
-</body>        
+
+   
+</script>

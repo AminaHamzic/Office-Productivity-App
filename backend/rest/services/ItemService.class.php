@@ -42,6 +42,12 @@ class ItemService
         return $this->item_dao->get_categories();
     }
 
+    public function get_all_items_with_categories() {
+        return $this->item_dao->get_all_items_with_categories();
+    }
+
+
+
     
     
 

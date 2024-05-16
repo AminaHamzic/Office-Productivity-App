@@ -26,7 +26,7 @@ class EmployeeDao extends BaseDao
     }
     
     public function get_employees_paginated($offset, $limit, $search, $order_column, $order_direction) {
-        $valid_columns = ['name_surname', 'position', 'office', 'working_hours'];
+        $valid_columns = ['name_surname', 'position', 'office', 'working_hours', 'email', 'password'];
         $valid_directions = ['ASC', 'DESC'];
     
         $order_column = in_array($order_column, $valid_columns) ? $order_column : 'name_surname';
@@ -65,14 +65,18 @@ class EmployeeDao extends BaseDao
                    SET name_surname = :name_surname,
                        position = :position,
                        office = :office,
-                       working_hours = :working_hours
+                       working_hours = :working_hours,
+                       email = :email,
+                       password = :password
                    WHERE user_id = :user_id";
         $this->execute($query, [
-            'user_id' => $user_id, // Change from $id to $user_id
+            'user_id' => $user_id,
             'name_surname' => $employee['name_surname'],
             'position' => $employee['position'],
             'office' => $employee['office'],
-            'working_hours' => $employee['working_hours']
+            'working_hours' => $employee['working_hours'],
+            'email' => $employee['email'],
+            'password' => $employee['password']
         ]);
     }
     
