@@ -82,20 +82,17 @@ Flight::route('GET /employees', function() {
  *              required={"name_surname", "position", "office", "working_hours"},
  *              @OA\Property(property="name_surname", type="string", example="John Doe"),
  *              @OA\Property(property="position", type="string", example="Manager"),
- *             @OA\Property(property="office", type="string", example="Sarajevo"),
- *             @OA\Property(property="working_hours", type="string", example="8")
- *             @OA\Property(property="email", type="string", example="amina.hamzic@gmail.com"),
- *             @OA\Property(property="password", type="string", example="orifodn")
- * 
- *
- * 
+ *              @OA\Property(property="office", type="string", example="Sarajevo"),
+ *              @OA\Property(property="working_hours", type="string", example="8"),
+ *              @OA\Property(property="email", type="string", example="amina.hamzic@gmail.com"),
+ *              @OA\Property(property="password", type="string", example="orifodn")
  *          )
  *      ),
  *      @OA\Response(
  *          response=200,
  *          description="Employee added successfully",
  *          @OA\JsonContent(
- *              @OA\Property(property="message", type="string", example="Employee added successfully"),
+ *              @OA\Property(property="message", type="string", example="Employee added successfully")
  *          )
  *      ),
  *      @OA\Response(
@@ -108,6 +105,7 @@ Flight::route('GET /employees', function() {
  *      )
  * )
  */
+
 
 Flight::route ('POST /employees/add', function() {
     $payload = Flight::request()->data->getData();

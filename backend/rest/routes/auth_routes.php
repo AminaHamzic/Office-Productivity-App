@@ -41,8 +41,7 @@ Flight::group('/auth', function() {
         $jwt_payload = [
             'user' => $user,
             'iat' => time(),
-            // If this parameter is not set, JWT will be valid for life. This is not a good approach
-            'exp' => time() + (60 * 60 * 24) // valid for day
+            'exp' => time() + (60 * 60 * 24)
         ];
 
         $token = JWT::encode(
