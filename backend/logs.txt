@@ -1,0 +1,32 @@
+ErrorException: Trying to access array offset on value of type null in C:\wamp64\www\Office-Productivity-App\backend\rest\routes\employee_routes.php:43
+Stack trace:
+#0 C:\wamp64\www\Office-Productivity-App\backend\rest\routes\employee_routes.php(43): flight\Engine->handleError(2, 'Trying to acces...', 'C:\\wamp64\\www\\O...', 43)
+#1 [internal function]: {closure}()
+#2 C:\wamp64\www\Office-Productivity-App\backend\vendor\flightphp\core\flight\core\Dispatcher.php(354): call_user_func_array(Object(Closure), Array)
+#3 C:\wamp64\www\Office-Productivity-App\backend\vendor\flightphp\core\flight\core\Dispatcher.php(287): flight\core\Dispatcher->invokeCallable(Object(Closure), Array)
+#4 C:\wamp64\www\Office-Productivity-App\backend\vendor\flightphp\core\flight\Engine.php(544): flight\core\Dispatcher->execute(Object(Closure), Array)
+#5 [internal function]: flight\Engine->_start()
+#6 C:\wamp64\www\Office-Productivity-App\backend\vendor\flightphp\core\flight\core\Dispatcher.php(376): call_user_func_array(Array, Array)
+#7 C:\wamp64\www\Office-Productivity-App\backend\vendor\flightphp\core\flight\core\Dispatcher.php(287): flight\core\Dispatcher->invokeCallable(Array, Array)
+#8 C:\wamp64\www\Office-Productivity-App\backend\vendor\flightphp\core\flight\core\Dispatcher.php(131): flight\core\Dispatcher->execute(Array, Array)
+#9 C:\wamp64\www\Office-Productivity-App\backend\vendor\flightphp\core\flight\core\Dispatcher.php(95): flight\core\Dispatcher->runEvent('start', Array)
+#10 C:\wamp64\www\Office-Productivity-App\backend\vendor\flightphp\core\flight\Engine.php(113): flight\core\Dispatcher->run('start', Array)
+#11 C:\wamp64\www\Office-Productivity-App\backend\vendor\flightphp\core\flight\Flight.php(119): flight\Engine->__call('start', Array)
+#12 C:\wamp64\www\Office-Productivity-App\backend\index.php(17): Flight::__callStatic('start', Array)
+#13 {main}
+ErrorException: Trying to access array offset on value of type null in C:\wamp64\www\Office-Productivity-App\backend\rest\routes\employee_routes.php:80
+Stack trace:
+#0 C:\wamp64\www\Office-Productivity-App\backend\rest\routes\employee_routes.php(80): flight\Engine->handleError(2, 'Trying to acces...', 'C:\\wamp64\\www\\O...', 80)
+#1 [internal function]: {closure}()
+#2 C:\wamp64\www\Office-Productivity-App\backend\vendor\flightphp\core\flight\core\Dispatcher.php(354): call_user_func_array(Object(Closure), Array)
+#3 C:\wamp64\www\Office-Productivity-App\backend\vendor\flightphp\core\flight\core\Dispatcher.php(287): flight\core\Dispatcher->invokeCallable(Object(Closure), Array)
+#4 C:\wamp64\www\Office-Productivity-App\backend\vendor\flightphp\core\flight\Engine.php(544): flight\core\Dispatcher->execute(Object(Closure), Array)
+#5 [internal function]: flight\Engine->_start()
+#6 C:\wamp64\www\Office-Productivity-App\backend\vendor\flightphp\core\flight\core\Dispatcher.php(376): call_user_func_array(Array, Array)
+#7 C:\wamp64\www\Office-Productivity-App\backend\vendor\flightphp\core\flight\core\Dispatcher.php(287): flight\core\Dispatcher->invokeCallable(Array, Array)
+#8 C:\wamp64\www\Office-Productivity-App\backend\vendor\flightphp\core\flight\core\Dispatcher.php(131): flight\core\Dispatcher->execute(Array, Array)
+#9 C:\wamp64\www\Office-Productivity-App\backend\vendor\flightphp\core\flight\core\Dispatcher.php(95): flight\core\Dispatcher->runEvent('start', Array)
+#10 C:\wamp64\www\Office-Productivity-App\backend\vendor\flightphp\core\flight\Engine.php(113): flight\core\Dispatcher->run('start', Array)
+#11 C:\wamp64\www\Office-Productivity-App\backend\vendor\flightphp\core\flight\Flight.php(119): flight\Engine->__call('start', Array)
+#12 C:\wamp64\www\Office-Productivity-App\backend\index.php(17): Flight::__callStatic('start', Array)
+#13 {main}

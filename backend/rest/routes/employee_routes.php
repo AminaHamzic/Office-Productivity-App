@@ -15,6 +15,41 @@ Flight:: set('employee_service', new EmployeeService());
  *      tags={"employees"},
  *      summary="Get paginated list of employees",
  *      description="Retrieve a paginated list of employees.",
+ *      @OA\Parameter(
+ *          name="start",
+ *          in="query",
+ *          required=true,
+ *          @OA\Schema(type="integer"),
+ *          description="Pagination start index"
+ *      ),
+ *      @OA\Parameter(
+ *          name="length",
+ *          in="query",
+ *          required=true,
+ *          @OA\Schema(type="integer"),
+ *          description="Number of records to fetch"
+ *      ),
+ *      @OA\Parameter(
+ *          name="draw",
+ *          in="query",
+ *          required=true,
+ *          @OA\Schema(type="integer"),
+ *          description="Draw counter for DataTables"
+ *      ),
+ *      @OA\Parameter(
+ *          name="search",
+ *          in="query",
+ *          required=false,
+ *          @OA\Schema(type="string"),
+ *          description="Search keyword"
+ *      ),
+ *      @OA\Parameter(
+ *          name="order",
+ *          in="query",
+ *          required=false,
+ *          @OA\Schema(type="array", @OA\Items(type="object")),
+ *          description="Ordering information"
+ *      ),
  *      @OA\Response(
  *          response=200,
  *          description="Successful retrieval of employee list",
@@ -22,7 +57,8 @@ Flight:: set('employee_service', new EmployeeService());
  *              @OA\Property(property="draw", type="integer", example=1),
  *              @OA\Property(property="recordsFiltered", type="integer", example=100),
  *              @OA\Property(property="recordsTotal", type="integer", example=500),
- *              @OA\Property(property="end", type="integer", example=100)
+ *              @OA\Property(property="end", type="integer", example=100),
+ *              @OA\Property(property="data", type="array", @OA\Items(type="object"))
  *          )
  *      ),
  *      @OA\Response(
@@ -32,25 +68,30 @@ Flight:: set('employee_service', new EmployeeService());
  * )
  */
 
-Flight::route('GET /employees', function() {
-
-   
-
+ Flight::route('GET /employees', function() {
     $payload = Flight::request()->query;
 
+    // Add default values and checks for missing parameters
+    $start = isset($payload['start']) ? (int)$payload['start'] : 0;
+    $search = isset($payload['search']['value']) ? $payload['search']['value'] : '';
+    $draw = isset($payload['draw']) ? (int)$payload['draw'] : 1;
+    $limit = isset($payload['length']) ? (int)$payload['length'] : 10;
+    $order_column = isset($payload['order'][0]['name']) ? $payload['order'][0]['name'] : 'id';
+    $order_direction = isset($payload['order'][0]['dir']) ? $payload['order'][0]['dir'] : 'asc';
+
     $params = [
-        "start" => (int)$payload['start'],
-        "search" => $payload['search']['value'],
-        "draw" => $payload['draw'],
-        "limit" => (int)$payload['length'],
-        "order_column" => $payload['order'][0]['name'],
-        "order_direction" => $payload['order'][0]['dir'],
+        "start" => $start,
+        "search" => $search,
+        "draw" => $draw,
+        "limit" => $limit,
+        "order_column" => $order_column,
+        "order_direction" => $order_direction,
     ];
 
-    
+    // Log the params for debugging
+    error_log(print_r($params, true));
 
     $data = Flight::get('employee_service')->get_employees_paginated($params['start'], $params['limit'], $params['search'], $params['order_column'], $params['order_direction']);
-
 
     foreach($data['data'] as $id => $employee){
         $data['data'][$id]['action'] = 
@@ -65,9 +106,8 @@ Flight::route('GET /employees', function() {
         'recordsTotal' => $data['count'],
         'end' => $data['count']
     ], 200);
-    
-
 });
+
 
 /**
  * @OA\Post(
@@ -177,28 +217,42 @@ Flight::route ('DELETE /employees/delete/@employee_id', function($employee_id) {
  *          name="employee_id",
  *          in="path",
  *          required=true,
- *          description="ID of the employee to fetch"
+ *          description="ID of the employee to fetch",
+ *          @OA\Schema(type="integer")
  *      ),
  *      @OA\Response(
  *          response=200,
  *          description="Successful retrieval of employee",
+ *          @OA\JsonContent(
+ *              @OA\Property(property="id", type="integer", example=1),
+ *              @OA\Property(property="name", type="string", example="John Doe"),
+ *              @OA\Property(property="position", type="string", example="Manager"),
+ *              @OA\Property(property="salary", type="number", format="float", example=50000)
+ *          )
  *      ),
  *      @OA\Response(
  *          response=500,
- *          description="Error occurred"
+ *          description="Error occurred",
+ *          @OA\JsonContent(
+ *              @OA\Property(property="message", type="string", example="Employee ID is required")
+ *          )
  *      )
  * )
  */
 
-Flight::route ('GET /employees/@employee_id', function($employee_id) {
-    
-    if($employee_id == NULL || $employee_id == '') {
-        Flight::halt(500, 'Employee ID is required');
-    }
-    $employee = Flight::get('employee_service')->get_employee_by_id($employee_id);
-    Flight::json($employee);
 
+ Flight::route('GET /employees/@employee_id', function($employee_id) {
+    if (is_null($employee_id) || $employee_id === '') {
+        Flight::halt(500, json_encode(['message' => 'Employee ID is required']));
+    }
     
+    $employee = Flight::get('employee_service')->get_employee_by_id($employee_id);
+
+    if ($employee) {
+        Flight::json($employee, 200);
+    } else {
+        Flight::halt(404, json_encode(['message' => 'Employee not found']));
+    }
 });
 
 /**
@@ -211,22 +265,20 @@ Flight::route ('GET /employees/@employee_id', function($employee_id) {
  *          name="employee_id",
  *          in="path",
  *          required=true,
- *          description="ID of the employee to update"
+ *          description="ID of the employee to update",
+ *          @OA\Schema(type="integer")
  *      ),
  *      @OA\RequestBody(
  *          description="Employee data to update",
  *          required=true,
  *          @OA\JsonContent(
  *              required={"name_surname", "position", "office", "working_hours"},
- *             @OA\Property(property="name_surname", type="string", example="John Doe"),
- *             @OA\Property(property="position", type="string", example="Manager"),
- *            @OA\Property(property="office", type="string", example="Sarajevo"),
- *            @OA\Property(property="working_hours", type="string", example="8"),
- *           @OA\Property(property="email", type="string", example="amina@gmail.com"),
- *          @OA\Property(property="password", type="string", example="orifodn")
- * 
- * 
- *              
+ *              @OA\Property(property="name_surname", type="string", example="John Doe"),
+ *              @OA\Property(property="position", type="string", example="Manager"),
+ *              @OA\Property(property="office", type="string", example="Sarajevo"),
+ *              @OA\Property(property="working_hours", type="string", example="8"),
+ *              @OA\Property(property="email", type="string", example="amina@gmail.com"),
+ *              @OA\Property(property="password", type="string", example="orifodn")
  *          )
  *      ),
  *      @OA\Response(
@@ -237,14 +289,23 @@ Flight::route ('GET /employees/@employee_id', function($employee_id) {
  *          )
  *      ),
  *      @OA\Response(
+ *          response=400,
+ *          description="Bad request",
+ *          @OA\JsonContent(
+ *              @OA\Property(property="error", type="string", example="Missing employee data")
+ *          )
+ *      ),
+ *      @OA\Response(
  *          response=500,
- *          description="Error occurred"
+ *          description="Error occurred",
+ *          @OA\JsonContent(
+ *              @OA\Property(property="error", type="string", example="Internal server error")
+ *          )
  *      )
  * )
  */
 
-
-Flight::route('PUT /employees/update/@employee_id', function($employee_id) {
+ Flight::route('PUT /employees/update/@employee_id', function($employee_id) {
     $request = Flight::request();
     $data = json_decode($request->getBody(), true);
 
